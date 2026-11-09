@@ -1,0 +1,58 @@
+﻿出店者の写真の入れ方
+==================
+
+このフォルダに、下の「ファイル名」で写真を保存すると、出店者紹介ページに表示されます。
+・形式は .jpg（横長 4:3 くらいがきれいに収まります。はみ出た部分は自動で切り取られます）
+・サイズは横 1200px 程度、1枚 300KB 以下がおすすめ（重いとページの表示が遅くなります）
+・写真がないお店は「写真準備中」と表示されます
+・Instagram などの写真は、必ず出店者さんに使用の許可をもらってください
+
+【物販】
+  tsutaya.jpg           TSUTAYA
+  akoakoa.jpg           akoAkoa
+  handmade.jpg          ハンドメイド作家
+  hanna.jpg             フラワーラウンジ ブラン ハンナ
+  seiun.jpg             青雲クラウン
+  thebon.jpg            the Bon inc.
+  noside-studio.jpg     NOSIDE STUDIO
+
+【ワークショップ・体験】
+  artec.jpg             アーテック
+  northobject.jpg       ノースオブジェクト
+  bookoff.jpg           BOOKOFF SUPER BAZAAR 25号八尾永畑店
+  tomoyasu.jpg          友安製作所
+  shijonawate.jpg       四條畷学園短期大学
+  possibelieve.jpg      PossiBelieve FC
+  dream.jpg             手芸センタードリーム
+
+【フード】
+  keitto.jpg            Keitto Leipä
+  hyoutan.jpg           揚物専門店 ひょうたん
+  omekashi.jpg          発酵惣菜店 Omekashi
+  shine.jpg             シャイン食堂 × QQQ YAO
+
+【フード】
+  treeoflife.jpg        TREE OF LIFE / chai ぺ
+  bindu.jpg             インドレストラン Bindu
+
+【スイーツ】
+  mikazuki.jpg          御菓子司三日月 / AM's FAMILY
+  crepe.jpg             クレープデプト
+  xavier.jpg            堺南蛮どらやきザビエル
+  haru.jpg              きまぐれ haru
+  mearo.jpg             食堂 MEARO
+  maru.jpg              Maru
+  poimaru.jpg           poimaru.
+  rencontre.jpg         rencontre
+  endehors.jpg          En dehors
+
+【カフェ】
+  kissa.jpg             KiSSA ZEROICHI
+  protio.jpg            Dining Cafe PROTIO
+  bloom.jpg             Bloom Company
+  uka.jpg               うか
+
+【ドリンク】
+  tabrewing.jpg         tA Brewing
+  dorogawa.jpg          洞川温泉醸造所
+

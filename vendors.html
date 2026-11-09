@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- 確認用サンプル：本番公開時はこの行と下の sample-bar を削除 -->
+<meta name="robots" content="noindex,nofollow">
+<title>出店者紹介｜ツタリノマルシェ</title>
+<meta name="description" content="ツタリノマルシェ（2026年11月21日・22日 近鉄八尾駅前 きんやおひろば）に出店するお店・ワークショップの紹介。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Yusei+Magic&family=Zen+Antique&family=Zen+Maru+Gothic:wght@500;700;900&family=Shippori+Mincho+B1:wght@700;800&display=swap">
+<link rel="stylesheet" href="style.css?v=20261109g">
+<style>
+  .page-hero{position:relative;padding:36px 0 8px;overflow:hidden}
+  .page-hero .bunting{position:absolute;top:0;right:-20px;transform:rotate(10deg);transform-origin:right top}
+  .page-hero .catch{margin:0 0 4px;font-size:clamp(1.1rem,3.6vw,1.6rem)}
+  .page-title{
+    font-family:"Dela Gothic One",sans-serif;font-weight:400;margin:0;
+    font-size:clamp(2.6rem,10vw,5rem);line-height:1.15;letter-spacing:.04em;
+  }
+  .page-lead{font-weight:700;margin:14px 0 0;max-width:42em}
+  .times{display:flex;flex-wrap:wrap;gap:8px 18px;margin:16px 0 0;padding:0;list-style:none;font-weight:900;font-size:.9rem}
+  .times li{background:#fff;border:3px solid var(--brown);border-radius:999px;padding:3px 14px}
+  .times b{font-family:"Shippori Mincho B1",serif;font-weight:800;margin-left:6px}
+
+  .controls{
+    position:sticky;top:63px;z-index:30;background:var(--yellow);
+    padding:14px 0 12px;border-bottom:3px dotted var(--brown);
+  }
+  .controls .row{display:flex;gap:8px;align-items:center;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+  .controls .row + .row{margin-top:8px}
+  .controls .row::-webkit-scrollbar{display:none}
+  .controls .lbl{flex:none;font-weight:900;font-size:.82rem;width:4.4em;white-space:nowrap}
+  .controls button{
+    flex:none;font:inherit;font-weight:900;font-size:.88rem;cursor:pointer;white-space:nowrap;
+    border:3px solid var(--brown);background:#fff;color:var(--brown);border-radius:999px;padding:4px 14px;
+  }
+  .controls button[aria-pressed="true"]{background:var(--brown);color:#fff}
+  .controls button .sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:0}
+  .count{font-weight:900;font-size:.88rem;margin:14px 0 0}
+
+  .genre-block{margin-top:36px}
+  .genre-block[hidden]{display:none}
+  .genre-title{display:flex;align-items:center;gap:12px;margin:0 0 16px;font-family:"Zen Antique",serif;font-size:clamp(1.5rem,4.4vw,2rem);letter-spacing:.08em}
+  .genre-title::before{content:"";width:22px;height:22px;border-radius:50%;border:3px solid var(--brown);background:var(--gc)}
+  .vcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+  @media(max-width:400px){.vcards{grid-template-columns:1fr}}
+  .vcard{
+    background:#fff;border-radius:22px;padding:0 20px 18px;display:flex;flex-direction:column;
+    border-top:10px solid var(--gc);scroll-margin-top:170px;overflow:hidden;
+  }
+  .vcard .photo{
+    position:relative;margin:0 -20px 16px;aspect-ratio:4/3;background:var(--gc);overflow:hidden;
+    border-bottom:4px solid var(--brown);
+  }
+  .vcard .photo img{width:100%;height:100%;object-fit:cover}
+  .vcard .photo .ph{
+    position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:4px;color:#fff;
+    background-image:radial-gradient(rgba(255,255,255,.28) 2px,transparent 2.5px);background-size:16px 16px;
+  }
+  .vcard .photo .ph b{
+    font-family:"Dela Gothic One",sans-serif;font-weight:400;font-size:3.4rem;line-height:1;
+    color:#fff;text-shadow:3px 3px 0 var(--brown);
+  }
+  .vcard .photo .ph span{
+    font-size:.78rem;font-weight:900;background:var(--brown);border-radius:999px;padding:2px 12px;
+  }
+  .vcard .photo.has-img .ph{display:none}
+  /* 写真2枚：左右に並べ、間に細い線 */
+  .vcard .photo.multi{display:flex;gap:4px;background:var(--brown)}
+  .vcard .photo.multi img{flex:1;min-width:0;background:#fff;object-fit:contain}
+  .vcard[hidden]{display:none}
+  .vcard:target{outline:4px solid var(--brown);outline-offset:3px}
+  .vcard .gname{font-size:.74rem;font-weight:900;color:var(--brown-soft);letter-spacing:.06em}
+  .vcard h3{margin:2px 0 0;font-size:1.25rem;font-weight:900;line-height:1.4}
+  .vcard .kana{font-size:.78rem;font-weight:700;color:var(--brown-soft);margin:0}
+  .vcard .desc{margin:12px 0 14px;font-size:.95rem;line-height:1.7}
+  .vcard .desc.tbd{color:var(--brown-soft);font-size:.88rem}
+  .vcard .when{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+  .vcard .when span{
+    background:var(--yellow-row);border:2px solid var(--brown);border-radius:8px;
+    font-size:.78rem;font-weight:900;padding:2px 8px;line-height:1.4;
+  }
+  .vcard .when span small{font-weight:700;margin-left:4px}
+  .vcard .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .vcard .links a{
+    font-size:.82rem;font-weight:900;text-decoration:none;background:var(--brown);color:#fff;
+    border-radius:999px;padding:4px 14px;
+  }
+  .vcard .links a::after{content:" ↗"}
+  .empty{font-weight:900;text-align:center;padding:40px 0}
+  .back{display:inline-block;margin:40px 0 72px;font-weight:900;text-decoration:none;background:#fff;border:3px solid var(--brown);border-radius:999px;padding:8px 22px}
+</style>
+</head>
+<body>
+<div class="sample-bar">これは出店者さま向けの<b>確認用サンプルページ</b>です（一般公開前）</div>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-tag"><b>TSUTAYA</b>リノアス八尾店</span>
+      <span class="brand-name">ツタリノマルシェ</span>
+    </a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">MENU</button>
+    <nav class="nav" id="nav">
+      <a href="index.html#pickup">みどころ</a>
+      <a href="index.html#schedule">タイムスケジュール</a>
+      <a href="vendors.html">出店者紹介</a>
+      <a href="index.html#instore">店内イベント</a>
+      <a href="index.html#access">アクセス</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="page-hero">
+    <div class="bunting" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="wrap">
+      <p class="catch">近鉄八尾駅前 きんやおひろば</p>
+      <h1 class="page-title">出店者紹介</h1>
+      <p class="page-lead">パンやスイーツ、クラフトビールに、親子で楽しめるワークショップまで。ツタリノマルシェに集まるお店をご紹介します。日によって出店するお店が変わるので、お目当てのお店はいつ出ているかチェックしてね！</p>
+      <ul class="times" id="times"></ul>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="wrap">
+      <div class="row" role="group" aria-label="出店日で絞り込み" id="dayFilter">
+        <span class="lbl">出店日</span>
+        <button aria-pressed="true" data-day="all">すべて</button>
+      </div>
+      <div class="row" role="group" aria-label="ジャンルで絞り込み" id="genreFilter">
+        <span class="lbl">ジャンル</span>
+        <button aria-pressed="true" data-genre="all">すべて</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <p class="count" id="count"></p>
+    <div id="list"></div>
+    <p class="empty" id="empty" hidden>条件に合うお店がありません。</p>
+    <p class="notes">※ 出店内容は概要です。当日のメニュー・内容は変更になる場合があります。<br>※ 出店者は変更になる場合があります。<br>※ お酒の販売は20歳以上の方に限ります。</p>
+    <a class="back" href="index.html">← トップページへ戻る</a>
+  </div>
+</main>
+
+<footer>© 2026 ツタリノマルシェ / TSUTAYA リノアス八尾店</footer>
+<a class="to-top" href="#top" aria-label="ページの先頭へ">▲<br>TOP</a>
+
+<script src="vendors-data.js?v=20261109v"></script>
+<script>
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+// ---- 時間帯の表示・フィルタボタン ----
+document.getElementById("times").innerHTML =
+  PARTS.map(p => `<li>${p.label}<b>${p.time}</b></li>`).join("");
+const dayFilter = document.getElementById("dayFilter");
+PARTS.forEach((p, i) => dayFilter.insertAdjacentHTML("beforeend", `<button aria-pressed="false" data-day="${i}">${p.label}</button>`));
+const genreFilter = document.getElementById("genreFilter");
+Object.entries(GENRES).forEach(([k, g]) => genreFilter.insertAdjacentHTML("beforeend",
+  `<button aria-pressed="false" data-genre="${k}"><span class="sw" style="background:${g.color}"></span>${g.name}</button>`));
+
+// ---- ジャンルごとにまとめてカードを描画（左右の列に分かれたジャンルは1つにまとめる） ----
+const byGenre = {};
+VENDOR_GROUPS.forEach(g => (byGenre[g.genre] ||= []).push(...g.items.filter(v => !v.alias)));
+const list = document.getElementById("list");
+Object.entries(byGenre).forEach(([key, items]) => {
+  const g = GENRES[key];
+  const cards = items.map(v => {
+    const when = v.days.map((d, i) => d ? `<span>${PARTS[i].label}<small>${PARTS[i].time}</small></span>` : "").join("");
+    const links = (v.links || []).map(([t, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join("");
+    const desc = v.desc
+      ? `<p class="desc">${esc(v.desc)}</p>`
+      : `<p class="desc tbd">出店内容は近日公開予定です。</p>`;
+    // 写真は images/vendors/<id>.jpg に置くと表示される（ない間は「写真準備中」）。photos で2枚並べることもできる
+    const photos = v.photos || [v.photo || `images/vendors/${v.id}.jpg`];
+    return `<article class="vcard" id="${v.id}" data-days="${v.days.join("")}" style="--gc:${g.color}">
+      <div class="photo${photos.length > 1 ? " multi" : ""}">
+        ${photos.map(src => `<img src="${esc(src)}" alt="${esc(v.name)}" loading="lazy"
+          onload="this.parentNode.classList.add('has-img')" onerror="this.remove()">`).join("")}
+        <div class="ph"><b>${esc([...v.name][0])}</b><span>写真準備中</span></div>
+      </div>
+      <span class="gname">${g.name}</span>
+      <h3>${v.lines ? v.lines.map(l => `<span class="nw">${esc(l)}</span>`).join(" ") : esc(v.name)}</h3>
+      ${v.kana ? `<p class="kana">${esc(v.kana)}</p>` : ""}
+      ${desc}
+      <div class="when">${when}</div>
+      ${links ? `<div class="links">${links}</div>` : ""}
+    </article>`;
+  }).join("");
+  list.insertAdjacentHTML("beforeend",
+    `<div class="genre-block" data-genre="${key}" style="--gc:${g.color}">
+      <h2 class="genre-title"><span>${g.lines ? g.lines.map(l => `<span class="nw">${l}</span>`).join("") : g.name}</span></h2>
+      <div class="vcards">${cards}</div>
+    </div>`);
+});
+
+// ---- 絞り込み ----
+let day = "all", genre = "all";
+function apply() {
+  let n = 0;
+  list.querySelectorAll(".genre-block").forEach(block => {
+    let shown = 0;
+    const genreOk = genre === "all" || block.dataset.genre === genre;
+    block.querySelectorAll(".vcard").forEach(c => {
+      const ok = genreOk && (day === "all" || c.dataset.days[day] === "1");
+      c.hidden = !ok;
+      if (ok) shown++;
+    });
+    block.hidden = shown === 0;
+    n += shown;
+  });
+  document.getElementById("count").textContent = `${n} 店舗`;
+  document.getElementById("empty").hidden = n > 0;
+}
+function bind(group, attr, set) {
+  group.addEventListener("click", e => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    group.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    set(b.dataset[attr]);
+    apply();
+  });
+}
+bind(dayFilter, "day", v => day = v);
+bind(genreFilter, "genre", v => genre = v);
+apply();
+
+// ---- メニュー ----
+const menuBtn = document.querySelector(".menu-btn"), nav = document.getElementById("nav");
+menuBtn.addEventListener("click", () => {
+  const open = nav.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", open);
+});
+</script>
+</body>
+</html>
