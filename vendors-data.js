@@ -156,3 +156,35 @@ const VENDOR_GROUPS = [
       links: [["公式サイト", "https://yama-beer.com/"]] },
   ]},
 ];
+
+// ---- 当日のお知らせ（雨天・中止・変更など） ----
+// text を書くと、両ページの一番上に表示される。空文字 "" なら表示しない。
+// type: "info"（黄色）/ "alert"（赤：中止・延期など）
+// 例) const NOTICE = { type: "alert", text: "本日11/21は雨天のため、ひろばの出店は中止します。店内イベントは開催します。" };
+const NOTICE = { type: "info", text: "" };
+
+// ---- 出店時間（1部・2部の切り替えに使う） 日本時間 ----
+const PART_TIMES = [
+  { start: "2026-11-21T10:00", end: "2026-11-21T14:30" },
+  { start: "2026-11-21T15:30", end: "2026-11-21T20:00" },
+  { start: "2026-11-22T10:00", end: "2026-11-22T17:00" },
+];
+
+// ---- ステージ・イベントの予定（トップの「次のステージ」に使う） ----
+// end を省くと、開始から30分間を「開催中」とみなす。place: "out"=きんやおひろば / "in"=TSUTAYA店内
+const SCHEDULE = [
+  { start: "2026-11-21T11:00", end: "2026-11-21T11:30", place: "out", title: "おはなしばすけっと＆クラウンショー", id: "ohanashi" },
+  { start: "2026-11-21T11:00", end: "2026-11-21T12:00", place: "in",  title: "きんやお横断ウルトラクイズ（予選）" },
+  { start: "2026-11-21T12:00", end: "2026-11-21T12:30", place: "out", title: "きんやお横断ウルトラクイズ（決勝）" },
+  { start: "2026-11-21T13:30", end: "2026-11-21T14:00", place: "out", title: "おはなしばすけっと＆クラウンショー", id: "ohanashi" },
+  { start: "2026-11-21T13:30", end: "2026-11-21T14:30", place: "in",  title: "ボッチャ体験（NOSIDE JETS）", id: "noside-studio" },
+  { start: "2026-11-21T15:00", place: "out", title: "PossiBelieve FC ストリートサッカー", id: "possibelieve" },
+  { start: "2026-11-21T16:30", place: "out", title: "Singer ASKA 音楽ライブ", id: "singer-aska" },
+  { start: "2026-11-21T17:30", end: "2026-11-21T20:00", place: "out", title: "星空映画鑑賞会『兄を持ち運べるサイズに』" },
+  { start: "2026-11-22T11:00", end: "2026-11-22T11:30", place: "out", title: "絵本のじかん＆えだまめこちゃんのグリーティング", id: "ehonnojikan" },
+  { start: "2026-11-22T13:20", end: "2026-11-22T14:00", place: "out", title: "絵本のじかん＆えだまめこちゃんのグリーティング", id: "ehonnojikan" },
+  { start: "2026-11-22T14:00", end: "2026-11-22T15:00", place: "in",  title: "山本巧次さん トークショー・サイン会" },
+  { start: "2026-11-22T14:30", place: "out", title: "しゃぼたあわおさん しゃぼんだまパフォーマンス", id: "shabota" },
+  { start: "2026-11-22T15:30", end: "2026-11-22T16:00", place: "out", title: "FORWARD GYM キックボクシング体験", id: "forwardgym" },
+  { start: "2026-11-22T16:30", place: "out", title: "ハミール ミニライブ", id: "hamiru" },
+];

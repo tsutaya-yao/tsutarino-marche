@@ -506,3 +506,58 @@
     background:var(--red);color:#fff;text-align:center;font-weight:700;font-size:.82rem;
     padding:6px 12px;line-height:1.5;
   }
+  /* ---------- お知らせの帯（vendors-data.js の NOTICE） ---------- */
+  .notice-bar{text-align:center;font-weight:900;font-size:.95rem;padding:10px 16px;line-height:1.5}
+  .notice-bar.info{background:var(--yellow-soft);color:var(--brown);border-bottom:3px solid var(--brown)}
+  .notice-bar.alert{background:var(--red);color:#fff}
+
+  /* ---------- いまのマルシェ（当日のライブ表示） ---------- */
+  .live-sec{padding:8px 0 0}
+  .live-card{background:#fff}
+  .live-card::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:var(--green)}
+  .live-card .feat-no{background:var(--green-deep)}
+  .live-title{
+    font-family:"Zen Maru Gothic",sans-serif;font-weight:900;font-size:clamp(1.3rem,4vw,1.8rem);
+    margin:0;display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px;line-height:1.3;
+  }
+  .live-title small{font-size:.55em;font-weight:700;color:var(--brown-soft)}
+  .live-dot{width:14px;height:14px;border-radius:50%;background:#2DBE5C;box-shadow:0 0 0 0 rgba(45,190,92,.6);animation:live-pulse 1.6s infinite}
+  @keyframes live-pulse{70%{box-shadow:0 0 0 10px rgba(45,190,92,0)}100%{box-shadow:0 0 0 0 rgba(45,190,92,0)}}
+  @media(prefers-reduced-motion:reduce){.live-dot{animation:none}}
+  .live-clock{margin:4px 0 0;font-size:.85rem;font-weight:700;color:var(--brown-soft)}
+  .live-msg{margin:10px 0 14px;font-weight:700}
+  .live-now{
+    display:flex;justify-content:center;align-items:baseline;gap:6px;margin:16px 0 6px;text-decoration:none;
+    background:var(--green);color:#fff;font-weight:900;font-size:clamp(1rem,3.4vw,1.2rem);
+    border:3px solid var(--brown);border-radius:999px;padding:10px 18px;box-shadow:0 5px 0 var(--brown);
+  }
+  .live-now b{font-family:"Shippori Mincho B1",serif;font-size:1.6em;line-height:1}
+  .live-now:hover{transform:translateY(-2px)}
+  .live-sub{margin:20px 0 8px;font-size:.95rem;font-weight:900;border-left:6px solid var(--orange);padding-left:8px}
+  .live-stages{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  .live-stages li{
+    display:grid;grid-template-columns:auto auto 1fr;gap:4px 10px;align-items:center;
+    background:var(--yellow-row);border-radius:14px;padding:10px 14px;
+  }
+  .live-stages li.is-live{background:#E7F5DA;outline:3px solid var(--green)}
+  .live-stages time{font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:1.15rem}
+  .live-stages .badge{
+    font-size:.75rem;font-weight:900;white-space:nowrap;border-radius:999px;padding:2px 10px;
+    background:var(--brown);color:#fff;
+  }
+  .live-stages li.is-live .badge{background:#2DBE5C}
+  .live-stages .ttl{font-weight:900;line-height:1.4;min-width:0}
+  .live-stages .ttl a{color:inherit}
+  .live-stages .ttl small{display:block;font-size:.75rem;font-weight:700;color:var(--brown-soft)}
+  @media(max-width:480px){
+    .live-stages li{grid-template-columns:auto 1fr}
+    .live-stages .ttl{grid-column:1 / -1}
+  }
+  /* ホーム画面に追加の案内 */
+  .app-sec{padding:0 0 24px}
+  .app-card{display:flex;gap:18px;align-items:flex-start;border:3px dashed var(--brown)}
+  .app-card img{flex:none;border-radius:18px;border:3px solid var(--brown)}
+  .app-card h3{margin:0 0 6px;font-size:clamp(1rem,3vw,1.2rem);font-weight:900;line-height:1.5}
+  .app-card p{margin:0;font-size:.9rem;font-weight:700;line-height:1.8}
+  .app-card .app-note{margin-top:8px;color:var(--brown-soft);font-size:.85rem}
+  @media(max-width:480px){.app-card{flex-direction:column;align-items:center;text-align:center}}

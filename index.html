@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <!-- 確認用サンプル：本番公開時はこの行と下の sample-bar を削除 -->
 <meta name="robots" content="noindex,nofollow">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#5B4038">
+<link rel="icon" type="image/png" href="images/icons/icon-192.png">
+<link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="ツタリノ">
 <title>ツタリノマルシェ｜2026.11.21-22 近鉄八尾駅前</title>
 <meta name="description" content="本屋さんが、まちにとびだした！TSUTAYA リノアス八尾店主催「ツタリノマルシェ」。2026年11月21日(土)・22日(日)、近鉄八尾駅前 きんやおひろば＆TSUTAYA リノアス八尾店 店内で開催。">
 <meta property="og:title" content="ツタリノマルシェ 2026.11.21(土)・22(日)">
@@ -13,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Yusei+Magic&family=Zen+Antique&family=Zen+Maru+Gothic:wght@500;700;900&family=Shippori+Mincho+B1:wght@700;800&display=swap">
-<link rel="stylesheet" href="style.css?v=20261109g">
+<link rel="stylesheet" href="style.css?v=20261109i">
 </head>
 <body>
 <div class="sample-bar">これは出店者さま向けの<b>確認用サンプルページ</b>です（一般公開前）</div>
@@ -126,6 +131,11 @@
   </div>
 
   <!-- ===== PICKUP ===== -->
+  <!-- ===== いまのマルシェ（当日だけ表示。live.js が中身を描く） ===== -->
+  <section id="live" class="live-sec" hidden>
+    <div class="wrap"><div class="card feature live-card" id="liveCard"></div></div>
+  </section>
+
   <section id="pickup">
     <div class="wrap">
       <h2 class="sec-title">みどころ <small>PICK UP</small></h2>
@@ -348,6 +358,21 @@
   </section>
 
   <!-- ===== CONTACT ===== -->
+  <!-- ===== ホーム画面に追加（アプリのように使う） ===== -->
+  <section id="app" class="app-sec">
+    <div class="wrap">
+      <div class="card app-card">
+        <img src="images/icons/icon-192.png" alt="" width="72" height="72">
+        <div>
+          <h3>スマホのホーム画面に追加すると、アプリのように使えます</h3>
+          <p><b>iPhone</b>：Safariで開いて、下の <span class="nw">［共有］→［ホーム画面に追加］</span><br>
+             <b>Android</b>：Chromeで開いて、右上の <span class="nw">［︙］→［ホーム画面に追加］</span></p>
+          <p class="app-note">当日は、いま出店中のお店や次のステージがひと目で分かります。★を付けたお気に入りのお店も、いつでも見返せます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="contact">
     <div class="wrap">
       <div class="card feature contact">
@@ -370,7 +395,8 @@
 <footer>© 2026 ツタリノマルシェ / TSUTAYA リノアス八尾店</footer>
 <a class="to-top" href="#top" aria-label="ページの先頭へ">▲<br>TOP</a>
 
-<script src="vendors-data.js?v=20261109v"></script>
+<script src="vendors-data.js?v=20261109w"></script>
+<script src="live.js?v=20261109a"></script>
 <script>
 // ---- 出店者一覧表（データは vendors-data.js） ----
 const grid = document.getElementById("vendorGrid");
@@ -423,11 +449,49 @@ menuBtn.addEventListener("click", () => {
 });
 nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => nav.classList.remove("open")));
 
+// ---- いまのマルシェ（開催中のお店・次のステージ） ----
+(() => {
+  const sec = document.getElementById("live"), card = document.getElementById("liveCard");
+  // 出店者紹介ページの「いま出店中」と同じ数え方（絵本ライブ・イベントも含む）
+  const shopCount = part => VENDOR_GROUPS.reduce((n, g) => n + g.items.filter(v => !v.alias && v.days[part]).length, 0);
+  const placeName = p => p === "in" ? "TSUTAYA店内" : "きんやおひろば";
+  function render() {
+    const t = Live.now(), st = Live.status(t);
+    if (st.state === "after") { sec.hidden = true; return; }
+    let head = "", body = "";
+    if (st.state === "before") {
+      head = `<h3 class="live-title">当日は、ここが「いまのマルシェ」に！</h3>`;
+      body = `<p class="live-msg">11/21・22の開催中は、<b>いま出店中のお店</b>と<b>次のステージ</b>がここに表示されます。</p>
+        <a class="more-link" href="?now=2026-11-21T11:10#live">当日の表示イメージを見る →</a>`;
+    } else {
+      const label = st.state === "open"
+        ? `<span class="live-dot"></span>ただいま開催中<small>${PARTS[st.part].label} ${PARTS[st.part].time}</small>`
+        : st.state === "before-today" ? `本日開催！<small>10:00スタート</small>`
+        : st.sameDay ? `${st.next === 1 ? "ただいま入れ替え中" : "まもなく開場"}<small>${PARTS[st.next].label}は ${PARTS[st.next].time.slice(0, 5)} から</small>`
+        : `本日の出店は終了しました<small>${PARTS[st.next].label} ${PARTS[st.next].time} もお待ちしています</small>`;
+      head = `<h3 class="live-title">${label}</h3><p class="live-clock">${Live.hhmm(t)} 現在</p>`;
+      if (st.state === "open") body += `<a class="live-now" href="vendors.html?show=now${location.search.includes("now=") ? "&" + location.search.slice(1) : ""}">いま出店中のお店 <b>${shopCount(st.part)}</b> 店を見る →</a>`;
+      const list = Live.stages(t, 3);
+      body += `<h4 class="live-sub">次のステージ・イベント</h4>`;
+      body += list.length ? `<ol class="live-stages">${list.map(s => `
+        <li${s.live ? ' class="is-live"' : ""}>
+          <time>${s.start.slice(11)}</time>
+          <span class="badge">${s.live ? "開催中" : s.mins < 60 ? `あと${s.mins}分` : `あと${Math.floor(s.mins / 60)}時間${s.mins % 60 ? (s.mins % 60) + "分" : ""}`}</span>
+          <span class="ttl">${s.id ? `<a href="vendors.html#${s.id}">${s.title}</a>` : s.title}<small>${placeName(s.place)}</small></span>
+        </li>`).join("")}</ol>` : `<p class="live-msg">本日のステージはすべて終了しました。</p>`;
+    }
+    card.innerHTML = `<span class="feat-no">LIVE <b>NOW</b></span>${head}${body}`;
+    sec.hidden = false;
+  }
+  render();
+  setInterval(render, 60e3);
+})();
+
 // ---- カウントダウン ----
 (() => {
   const el = document.getElementById("countdown");
   const start = new Date("2026-11-21T00:00:00+09:00"), end = new Date("2026-11-23T00:00:00+09:00");
-  const now = new Date();
+  const now = Live.now();
   if (now < start) {
     const days = Math.ceil((start - now) / 86400000);
     el.innerHTML = `開催まで あと <b>${days}</b> 日`;

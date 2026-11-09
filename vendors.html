@@ -5,12 +5,17 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <!-- 確認用サンプル：本番公開時はこの行と下の sample-bar を削除 -->
 <meta name="robots" content="noindex,nofollow">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#5B4038">
+<link rel="icon" type="image/png" href="images/icons/icon-192.png">
+<link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="ツタリノ">
 <title>出店者紹介｜ツタリノマルシェ</title>
 <meta name="description" content="ツタリノマルシェ（2026年11月21日・22日 近鉄八尾駅前 きんやおひろば）に出店するお店・ワークショップの紹介。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Yusei+Magic&family=Zen+Antique&family=Zen+Maru+Gothic:wght@500;700;900&family=Shippori+Mincho+B1:wght@700;800&display=swap">
-<link rel="stylesheet" href="style.css?v=20261109g">
+<link rel="stylesheet" href="style.css?v=20261109i">
 <style>
   .page-hero{position:relative;padding:36px 0 8px;overflow:hidden}
   .page-hero .bunting{position:absolute;top:0;right:-20px;transform:rotate(10deg);transform-origin:right top}
@@ -91,6 +96,23 @@
   .vcard .links a::after{content:" ↗"}
   .empty{font-weight:900;text-align:center;padding:40px 0}
   .back{display:inline-block;margin:40px 0 72px;font-weight:900;text-decoration:none;background:#fff;border:3px solid var(--brown);border-radius:999px;padding:8px 22px}
+  /* ★お気に入り・いま出店中 */
+  .vcard{position:relative}
+  .fav-btn{
+    position:absolute;right:10px;top:10px;z-index:2;width:44px;height:44px;border-radius:50%;
+    border:3px solid var(--brown);background:#fff;color:var(--brown);font-size:1.4rem;line-height:1;cursor:pointer;
+    display:grid;place-items:center;box-shadow:0 3px 0 var(--brown);
+  }
+  .fav-btn[aria-pressed="true"]{background:var(--orange);color:#fff}
+  .count-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .count-row .count{margin:0}
+  .fav-only{
+    font:inherit;font-weight:900;font-size:.88rem;cursor:pointer;border:3px solid var(--brown);
+    background:#fff;color:var(--brown);border-radius:999px;padding:4px 14px;
+  }
+  .fav-only[aria-pressed="true"]{background:var(--orange);color:#fff}
+  .controls .now-btn{display:inline-flex;align-items:center;gap:6px}
+  .controls .now-btn .live-dot{width:10px;height:10px}
 </style>
 </head>
 <body>
@@ -138,7 +160,7 @@
   </div>
 
   <div class="wrap">
-    <p class="count" id="count"></p>
+    <div class="count-row"><p class="count" id="count"><span id="countNum"></span></p><button class="fav-only" id="favOnly" type="button" aria-pressed="false">★ お気に入りだけ表示（<b>0</b>）</button></div>
     <div id="list"></div>
     <p class="empty" id="empty" hidden>条件に合うお店がありません。</p>
     <p class="notes">※ 出店内容は概要です。当日のメニュー・内容は変更になる場合があります。<br>※ 出店者は変更になる場合があります。<br>※ お酒の販売は20歳以上の方に限ります。</p>
@@ -149,7 +171,8 @@
 <footer>© 2026 ツタリノマルシェ / TSUTAYA リノアス八尾店</footer>
 <a class="to-top" href="#top" aria-label="ページの先頭へ">▲<br>TOP</a>
 
-<script src="vendors-data.js?v=20261109v"></script>
+<script src="vendors-data.js?v=20261109w"></script>
+<script src="live.js?v=20261109a"></script>
 <script>
 const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
@@ -157,6 +180,7 @@ const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&
 document.getElementById("times").innerHTML =
   PARTS.map(p => `<li>${p.label}<b>${p.time}</b></li>`).join("");
 const dayFilter = document.getElementById("dayFilter");
+dayFilter.insertAdjacentHTML("beforeend", `<button aria-pressed="false" data-day="now" class="now-btn"><span class="live-dot"></span>いま出店中</button>`);
 PARTS.forEach((p, i) => dayFilter.insertAdjacentHTML("beforeend", `<button aria-pressed="false" data-day="${i}">${p.label}</button>`));
 const genreFilter = document.getElementById("genreFilter");
 Object.entries(GENRES).forEach(([k, g]) => genreFilter.insertAdjacentHTML("beforeend",
@@ -176,7 +200,9 @@ Object.entries(byGenre).forEach(([key, items]) => {
       : `<p class="desc tbd">出店内容は近日公開予定です。</p>`;
     // 写真は images/vendors/<id>.jpg に置くと表示される（ない間は「写真準備中」）。photos で2枚並べることもできる
     const photos = v.photos || [v.photo || `images/vendors/${v.id}.jpg`];
+    const on = Live.fav.has(v.id);
     return `<article class="vcard" id="${v.id}" data-days="${v.days.join("")}" style="--gc:${g.color}">
+      <button class="fav-btn" type="button" data-fav="${v.id}" aria-pressed="${on}" aria-label="${esc(v.name)}をお気に入りに${on ? "登録済み" : "追加"}">${on ? "★" : "☆"}</button>
       <div class="photo${photos.length > 1 ? " multi" : ""}">
         ${photos.map(src => `<img src="${esc(src)}" alt="${esc(v.name)}" loading="lazy"
           onload="this.parentNode.classList.add('has-img')" onerror="this.remove()">`).join("")}
@@ -198,22 +224,28 @@ Object.entries(byGenre).forEach(([key, items]) => {
 });
 
 // ---- 絞り込み ----
-let day = "all", genre = "all";
+let day = "all", genre = "all", onlyFav = false;
 function apply() {
   let n = 0;
+  // 「いま出店中」は、いまの時刻から部を決める（営業時間外は 0 件）
+  const dayIdx = day === "now" ? Live.currentPart() : day;
   list.querySelectorAll(".genre-block").forEach(block => {
     let shown = 0;
     const genreOk = genre === "all" || block.dataset.genre === genre;
     block.querySelectorAll(".vcard").forEach(c => {
-      const ok = genreOk && (day === "all" || c.dataset.days[day] === "1");
+      const ok = genreOk && (day === "all" || (dayIdx >= 0 && c.dataset.days[dayIdx] === "1")) && (!onlyFav || Live.fav.has(c.id));
       c.hidden = !ok;
       if (ok) shown++;
     });
     block.hidden = shown === 0;
     n += shown;
   });
-  document.getElementById("count").textContent = `${n} 店舗`;
-  document.getElementById("empty").hidden = n > 0;
+  document.getElementById("countNum").textContent = `${n} 店舗`;
+  const empty = document.getElementById("empty");
+  empty.hidden = n > 0;
+  empty.textContent = onlyFav && Live.fav.size() === 0 ? "まだお気に入りがありません。気になるお店の ☆ をタップしてください。"
+    : day === "now" && dayIdx < 0 ? nowClosedMsg()
+    : "条件に合うお店がありません。";
 }
 function bind(group, attr, set) {
   group.addEventListener("click", e => {
@@ -226,6 +258,37 @@ function bind(group, attr, set) {
 }
 bind(dayFilter, "day", v => day = v);
 bind(genreFilter, "genre", v => genre = v);
+
+// 営業時間外に「いま出店中」を押したときの案内
+function nowClosedMsg() {
+  const st = Live.status();
+  if (st.state === "before" || st.state === "before-today") return "いまは開催前です。11/21(土) 10:00 から、出店中のお店がここに表示されます。";
+  if (st.state === "after") return "ツタリノマルシェは終了しました。ご来場ありがとうございました！";
+  return `いまは出店時間外です。次は ${PARTS[st.next].label}（${PARTS[st.next].time}）です。`;
+}
+
+// ★ お気に入り
+list.addEventListener("click", e => {
+  const b = e.target.closest(".fav-btn");
+  if (!b) return;
+  const on = Live.fav.toggle(b.dataset.fav);
+  b.setAttribute("aria-pressed", on);
+  b.setAttribute("aria-label", b.getAttribute("aria-label").replace(/(登録済み|追加)$/, on ? "登録済み" : "追加"));
+  b.textContent = on ? "★" : "☆";
+  updateFavBtn();
+  if (onlyFav) apply();
+});
+const favBtn = document.getElementById("favOnly");
+function updateFavBtn() { favBtn.querySelector("b").textContent = Live.fav.size(); }
+favBtn.addEventListener("click", () => {
+  onlyFav = !onlyFav;
+  favBtn.setAttribute("aria-pressed", onlyFav);
+  apply();
+});
+updateFavBtn();
+
+// トップの「いま出店中のお店を見る」から来たとき
+if (new URLSearchParams(location.search).get("show") === "now") dayFilter.querySelector('[data-day="now"]').click();
 apply();
 
 // ---- メニュー ----
