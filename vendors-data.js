@@ -128,7 +128,7 @@ const VENDOR_GROUPS = [
       links: [["Instagram", "https://www.instagram.com/mearo_funfunfun/"]] },
     { id: "maru", name: "Maru", kana: "マルー", days: [0,1,0], photo: "images/vendors/maru.jpg?v=20261110",
       desc: "プラントベースのお店による、米粉マフィン、グラノーラ、クッキー、ナッツ。おやつや朝ごはんにもどうぞ。",
-      links: [["Facebook", "https://www.facebook.com/p/Maru-100079747344310/"]] },
+      links: [["Instagram", "https://www.instagram.com/maru_plant.based.market/"]] },
     { id: "poimaru", name: "poimaru.", kana: "ポイマル", days: [0,0,1],
       desc: "近鉄八尾のたい焼き屋さんによる、円満たい焼き、クッキー、小物類。あつあつのたい焼きを、ぜひ会場で。",
       links: [["Instagram", "https://www.instagram.com/poimaru_taiyaki/"]] },
