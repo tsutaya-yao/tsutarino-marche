@@ -102,7 +102,7 @@ const VENDOR_GROUPS = [
       desc: "発酵食材を使ったお弁当やお惣菜、甘酒、ナチュラルドレッシングなど。大阪・放出の発酵惣菜店です。",
       links: [["Instagram", "https://www.instagram.com/omekashi_osozai/"]] },
     { id: "shine", name: "シャイン食堂 × QQQ YAO", kana: "シャインしょくどう", days: [0,1,0],
-      desc: "串団子、和香春巻（和スイーツ）、ぜんざい など。八尾市光南町の食堂による、ほっとする和の味をどうぞ。",
+      desc: "和スイーツと、中華がメインの「社員食堂弁当」の販売。八尾市光南町の食堂が、元気が出るお弁当と、串団子・和香春巻・ぜんざいなどのほっとする甘味を届けます。夕方のごはんにも、おやつにもぴったりです。",
       links: [["Instagram", "https://www.instagram.com/shain.syokudoxqqq.yao/"]] },
     { id: "treeoflife", name: "TREE OF LIFE / chai ぺ", kana: "ツリーオブライフ / チャイッペ", days: [0,1,0],
       desc: "ラクサ（シンガポールヌードル）、おうちで楽しめるラクサスープ（パウチ）、チャイ、クラフトジンジャー。スパイス香るアジアの味を楽しめます。",
