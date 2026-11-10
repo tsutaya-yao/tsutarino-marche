@@ -126,7 +126,7 @@ const VENDOR_GROUPS = [
     { id: "mearo", name: "食堂 MEARO", kana: "メアロ", days: [1,0,0],
       desc: "米粉シフォンケーキ。八尾市の食堂 MEARO による、米粉を使ったふんわりやさしいおやつです。",
       links: [["Instagram", "https://www.instagram.com/mearo_funfunfun/"]] },
-    { id: "maru", name: "Maru", kana: "マル", days: [0,1,0],
+    { id: "maru", name: "Maru", kana: "マルー", days: [0,1,0],
       desc: "プラントベースのお店による、米粉マフィン、グラノーラ、クッキー、ナッツ。おやつや朝ごはんにもどうぞ。",
       links: [["Facebook", "https://www.facebook.com/p/Maru-100079747344310/"]] },
     { id: "poimaru", name: "poimaru.", kana: "ポイマル", days: [0,0,1],
