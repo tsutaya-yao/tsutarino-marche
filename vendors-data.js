@@ -25,7 +25,7 @@ const VENDOR_GROUPS = [
       desc: "絵本の読み聞かせなどの絵本ライブと、クラウンショー。21日は11:00〜と13:30〜の2回、きんやおひろばに登場します。",
       links: [["Instagram", "https://www.instagram.com/basuketto1996/"]] },
     { id: "ehonnojikan", name: "絵本のじかん", kana: "", days: [0,0,1],
-      desc: "歌や生演奏と共に絵本の世界を届ける絵本ライブを、22日の11:00〜と13:00〜の2回開催。絵本ライブの前後には、えだまめこちゃんが登場します！",
+      desc: "歌や生演奏と共に絵本の世界を届ける絵本ライブを、22日の11:00〜と13:30〜の2回開催。絵本ライブの前後には、えだまめこちゃんが登場します！",
       links: [["Instagram", "https://www.instagram.com/ehon.no.jikan/"]] },
   ]},
   { genre: "event", col: null, items: [
