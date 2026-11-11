@@ -171,7 +171,7 @@
 <footer>© 2026 ツタリノマルシェ / TSUTAYA リノアス八尾店</footer>
 <a class="to-top" href="#top" aria-label="ページの先頭へ">▲<br>TOP</a>
 
-<script src="vendors-data.js?v=20261111c"></script>
+<script src="vendors-data.js?v=20261111d"></script>
 <script src="live.js?v=20261109a"></script>
 <script>
 const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -193,7 +193,8 @@ const list = document.getElementById("list");
 Object.entries(byGenre).forEach(([key, items]) => {
   const g = GENRES[key];
   const cards = items.map(v => {
-    const when = v.days.map((d, i) => d ? `<span>${PARTS[i].label}<small>${PARTS[i].time}</small></span>` : "").join("");
+    // hours があれば、部の時間ではなくその時間を表示（例：絵本ライブ 11:00〜14:00）
+    const when = v.days.map((d, i) => d ? `<span>${PARTS[i].label}<small>${v.hours || PARTS[i].time}</small></span>` : "").join("");
     const links = (v.links || []).map(([t, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join("");
     const desc = v.desc
       ? `<p class="desc">${esc(v.desc)}</p>`

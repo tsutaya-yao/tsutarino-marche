@@ -3,6 +3,7 @@
 // col: トップページの一覧表で左右どちらの列に出すか（チラシと同じ並び）。null は一覧表に出さない
 // alias: 一覧表にだけ載せる行（紹介カードは alias 先の店のものを使う） / table: false は紹介カードにだけ出す
 // lines: 長い店名の改行位置（この単位でしか折り返さない） / note: 一覧表で店名の下に小さく出す補足
+// hours: 出店者紹介のカードに出す時間を個別に指定（省略時は部の時間）
 // 写真: images/vendors/<id>.jpg を置くと出店者紹介ページに表示される。
 //       別のファイル名にしたいときは photo: "images/vendors/xxx.png" を書く。photos: [a, b] で2枚並べる
 const PARTS = [
@@ -21,10 +22,10 @@ const GENRES = {
 
 const VENDOR_GROUPS = [
   { genre: "ehon", col: null, items: [
-    { id: "ohanashi", name: "おはなしばすけっと", kana: "", days: [1,0,0],
+    { id: "ohanashi", name: "おはなしばすけっと", kana: "", days: [1,0,0], hours: "11:00〜14:00",
       desc: "絵本の読み聞かせなどの絵本ライブと、クラウンショー。21日は11:00〜と13:30〜の2回、きんやおひろばに登場します。",
       links: [["Instagram", "https://www.instagram.com/basuketto1996/"]] },
-    { id: "ehonnojikan", name: "絵本のじかん", kana: "", days: [0,0,1],
+    { id: "ehonnojikan", name: "絵本のじかん", kana: "", days: [0,0,1], hours: "11:00〜14:00",
       desc: "歌や生演奏と共に絵本の世界を届ける絵本ライブを22日の11:00〜と13:30〜の2回開催。絵本ライブの前後には、えだまめこちゃんが登場します！",
       links: [["Instagram", "https://www.instagram.com/ehon.no.jikan/"]] },
   ]},
